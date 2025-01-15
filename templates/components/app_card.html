@@ -1,4 +1,12 @@
-<div class="app-card" data-app-store-link="{{ app.appStoreLink }}">
+<div class="app-card" 
+    data-app-store-link="{{ app.appStoreLink }}"
+    data-app-name="{{ app.name }}"
+    data-app-id="{{ app.id }}"
+    data-category="{{ app.category | lower }}"
+    data-launch-count="{{ app.launchCount }}"
+    data-last-launched="{{ app.lastLaunched }}"
+    onclick="launchApp(this)"
+    oncontextmenu="editApp(event, this); return false;">
     <img src="{{ app.iconUrl }}" alt="{{ app.name }}" class="app-icon">
     <h3 class="app-name">{{ app.name }}</h3>
 </div>

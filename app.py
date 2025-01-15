@@ -15,11 +15,25 @@ app.secret_key = os.urandom(24)
 
 class Config:
     JSON_FILE = "data/apps.json"
+    CATEGORIES_FILE = "data/categories.json"
     DEFAULT_ICON_SIZE = 60
     BACKUP_COUNT = 5
 
 class AppError(Exception):
     pass
+
+def load_categories():
+    try:
+        if not os.path.exists(Config.CATEGORIES_FILE):
+            os.makedirs(os.path.dirname(Config.CATEGORIES_FILE), exist_ok=True)
+            return []
+        
+        with open(Config.CATEGORIES_FILE, 'r') as f:
+            data = json.load(f)
+            return data.get('categories', [])
+    except Exception as e:
+        logger.error(f"Error loading categories: {e}")
+        return []
 
 class AppDataManager:
     @staticmethod
@@ -31,7 +45,12 @@ class AppDataManager:
                         "metadata": {"lastUpdated": datetime.utcnow().isoformat(), "version": "1.0"}}
             
             with open(Config.JSON_FILE, 'r') as f:
-                return json.load(f)
+                data = json.load(f)
+                # Ensure launch count exists for all apps
+                for app in data.get("apps", []):
+                    if "launchCount" not in app:
+                        app["launchCount"] = 0
+                return data
         except Exception as e:
             logger.error(f"Error loading apps: {e}")
             raise AppError("Failed to load app data")
@@ -53,11 +72,18 @@ def validate_app_data(data):
     
     if not data["appStoreLink"].startswith("https://apps.apple.com/"):
         raise AppError("Invalid App Store link")
+    
+    # Ensure category is lowercase
+    data["category"] = data["category"].lower()
+    # Initialize launch count for new apps
+    if "launchCount" not in data:
+        data["launchCount"] = 0
 
 @app.route("/")
 def home():
     data = AppDataManager.load_apps()
-    return render_template("index.html", data=data)
+    categories = load_categories()
+    return render_template("index.html", data=data, categories=categories)
 
 @app.route("/api/apps", methods=["GET", "POST", "PUT"])
 def manage_apps():
@@ -113,3 +139,28 @@ def handle_exception(e):
     response = jsonify({"error": str(e.description)})
     response.status_code = e.code
     return response
+
+@app.route("/api/apps/<app_id>", methods=["DELETE"])
+def delete_app(app_id):
+    data = AppDataManager.load_apps()
+    
+    for i, app in enumerate(data["apps"]):
+        if app["id"] == app_id:
+            del data["apps"][i]
+            AppDataManager.save_apps(data)
+            return jsonify({"status": "success"})
+    
+    abort(404)
+
+@app.route("/api/apps/<app_id>/launch", methods=["POST"])
+def increment_launch_count(app_id):
+    data = AppDataManager.load_apps()
+    
+    for app in data["apps"]:
+        if app["id"] == app_id:
+            app["launchCount"] = app.get("launchCount", 0) + 1
+            app["lastLaunched"] = datetime.utcnow().isoformat()
+            AppDataManager.save_apps(data)
+            return jsonify({"status": "success", "launchCount": app["launchCount"]})
+    
+    abort(404)

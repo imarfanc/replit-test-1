@@ -1,20 +1,32 @@
 {
   "apps": [
     {
-      "id": "sample-app-1",
-      "name": "Sample App",
-      "category": "Productivity",
-      "iconUrl": "https://example.com/icon.png",
-      "appStoreLink": "https://apps.apple.com/app/sample",
-      "lastModified": "2024-03-21T10:30:00Z"
+      "id": "2b93d2b3-9584-4475-a933-568874ebf35f",
+      "name": "ChatGPT",
+      "category": "Ai",
+      "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/1a/7d/16/1a7d1606-955e-9d43-547a-ccb915711ce1/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/460x0w.webp",
+      "appStoreLink": "https://apps.apple.com/us/app/chatgpt/id6448311069",
+      "lastModified": "2025-01-15T23:03:46.072364",
+      "launchCount": 1,
+      "lastLaunched": "2025-01-15T23:07:23.917225"
+    },
+    {
+      "id": "4aa6368b-d36e-413b-a9fe-f2d57fc744a8",
+      "name": "Simplenote",
+      "category": "productivity",
+      "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/70/45/67/7045673b-5e74-76ae-a026-af4b96071bed/AppIcon-0-0-1x_U007epad-0-1-0-85-220.png/460x0w.webp",
+      "appStoreLink": "https://apps.apple.com/us/app/simplenote/id289429962",
+      "lastModified": "2025-01-15T23:04:46.949635",
+      "launchCount": 1,
+      "lastLaunched": "2025-01-15T23:07:27.284776"
     }
   ],
   "settings": {
-    "iconSize": 60,
+    "iconSize": 54,
     "theme": "dark"
   },
   "metadata": {
-    "lastUpdated": "2024-03-21T10:30:00Z",
+    "lastUpdated": "2025-01-15T23:07:27.284783",
     "version": "1.0"
   }
 }

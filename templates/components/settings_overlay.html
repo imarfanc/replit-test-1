@@ -1,19 +1,38 @@
-<div id="settingsOverlay" class="overlay">
+<div id="settingsOverlay" class="overlay" onclick="if(event.target === this) this.style.display='none'">
     <div class="overlay-content">
         <div class="settings-form">
             <h2 class="mb-4">Settings</h2>
-            <div class="mb-3">
-                <label for="iconSize" class="form-label">Icon Size</label>
-                <select id="iconSize" class="form-select" name="iconSize">
-                    <option value="24" {% if data.settings.iconSize == 24 %}selected{% endif %}>24px</option>
-                    <option value="36" {% if data.settings.iconSize == 36 %}selected{% endif %}>36px</option>
-                    <option value="48" {% if data.settings.iconSize == 48 %}selected{% endif %}>48px</option>
-                    <option value="60" {% if data.settings.iconSize == 60 %}selected{% endif %}>60px</option>
-                    <option value="72" {% if data.settings.iconSize == 72 %}selected{% endif %}>72px</option>
-                    <option value="96" {% if data.settings.iconSize == 96 %}selected{% endif %}>96px</option>
-                </select>
+            <div class="settings-grid">
+                <div class="setting-row">
+                    <label for="iconSize" class="form-label">Icon Size</label>
+                    <div class="btn-group" role="group" aria-label="Icon size selection">
+                        <input type="radio" class="btn-check" name="iconSize" id="size24" value="24" {% if data.settings.iconSize == 24 %}checked{% endif %}>
+                        <label class="btn btn-outline-primary" for="size24">24px</label>
+                        
+                        <input type="radio" class="btn-check" name="iconSize" id="size36" value="36" {% if data.settings.iconSize == 36 %}checked{% endif %}>
+                        <label class="btn btn-outline-primary" for="size36">36px</label>
+                        
+                        <input type="radio" class="btn-check" name="iconSize" id="size48" value="48" {% if data.settings.iconSize == 48 %}checked{% endif %}>
+                        <label class="btn btn-outline-primary" for="size48">48px</label>
+                        
+                        <input type="radio" class="btn-check" name="iconSize" id="size54" value="54" {% if data.settings.iconSize == 54 %}checked{% endif %}>
+                        <label class="btn btn-outline-primary" for="size54">54px</label>
+                        
+                        <input type="radio" class="btn-check" name="iconSize" id="size60" value="60" {% if data.settings.iconSize == 60 %}checked{% endif %}>
+                        <label class="btn btn-outline-primary" for="size60">60px</label>
+                        
+                        <input type="radio" class="btn-check" name="iconSize" id="size72" value="72" {% if data.settings.iconSize == 72 %}checked{% endif %}>
+                        <label class="btn btn-outline-primary" for="size72">72px</label>
+                    </div>
+                </div>
+                <div class="setting-row">
+                    <label for="shortcutUrl" class="form-label">Shortcut URL</label>
+                    <input type="text" class="form-control" id="shortcutUrl" name="shortcutUrl" 
+                           value="{{ data.settings.shortcutUrl if data.settings.shortcutUrl else 'shortcuts://run-shortcut?name=open_iOS_Apps' }}"
+                           placeholder="Enter iOS Shortcut URL">
+                </div>
             </div>
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-end mt-3">
                 <button type="button" class="btn btn-secondary" onclick="document.getElementById('settingsOverlay').style.display='none'">Close</button>
             </div>
         </div>
