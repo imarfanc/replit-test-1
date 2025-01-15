@@ -1,0 +1,21 @@
+<div id="settingsOverlay" class="overlay">
+    <div class="overlay-content">
+        <div class="settings-form">
+            <h2 class="mb-4">Settings</h2>
+            <div class="mb-3">
+                <label for="iconSize" class="form-label">Icon Size</label>
+                <select id="iconSize" class="form-select" name="iconSize">
+                    <option value="24" {% if data.settings.iconSize == 24 %}selected{% endif %}>24px</option>
+                    <option value="36" {% if data.settings.iconSize == 36 %}selected{% endif %}>36px</option>
+                    <option value="48" {% if data.settings.iconSize == 48 %}selected{% endif %}>48px</option>
+                    <option value="60" {% if data.settings.iconSize == 60 %}selected{% endif %}>60px</option>
+                    <option value="72" {% if data.settings.iconSize == 72 %}selected{% endif %}>72px</option>
+                    <option value="96" {% if data.settings.iconSize == 96 %}selected{% endif %}>96px</option>
+                </select>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-secondary" onclick="document.getElementById('settingsOverlay').style.display='none'">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div id="editOverlay" class="overlay">
+    <div class="overlay-content">
+        <h2 class="mb-4">Edit App</h2>
+        <form id="editAppForm">
+            <div class="mb-3">
+                <label for="appName" class="form-label">App Name</label>
+                <input type="text" class="form-control" id="appName" required>
+            </div>
+            <div class="mb-3">
+                <label for="appCategory" class="form-label">Category</label>
+                <input type="text" class="form-control" id="appCategory" required>
+            </div>
+            <div class="mb-3">
+                <label for="iconUrl" class="form-label">Icon URL</label>
+                <input type="url" class="form-control" id="iconUrl" required>
+            </div>
+            <div class="mb-3">
+                <label for="appStoreLink" class="form-label">App Store Link</label>
+                <input type="url" class="form-control" id="appStoreLink" required>
+            </div>
+            <div class="d-flex justify-content-end gap-2">
+                <button type="button" class="btn btn-secondary" onclick="document.getElementById('editOverlay').style.display='none'">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

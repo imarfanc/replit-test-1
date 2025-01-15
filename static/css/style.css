@@ -1,0 +1,72 @@
+:root {
+    --bs-body-bg: #212529;
+    --bs-body-color: #f8f9fa;
+}
+
+body {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+}
+
+.app-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.app-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    background-color: #2c3034;
+    border-radius: 0.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.app-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.app-icon {
+    width: var(--icon-size, 60px);
+    height: var(--icon-size, 60px);
+    margin-bottom: 0.5rem;
+    border-radius: 12px;
+}
+
+.app-name {
+    font-size: 0.9rem;
+    margin: 0;
+    color: var(--bs-body-color);
+    word-break: break-word;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.overlay-content {
+    background-color: #2c3034;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    width: 90%;
+    max-width: 500px;
+}
+
+.settings-form {
+    color: var(--bs-body-color);
+}

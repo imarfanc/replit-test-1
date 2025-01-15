@@ -1,0 +1,20 @@
+{
+  "apps": [
+    {
+      "id": "sample-app-1",
+      "name": "Sample App",
+      "category": "Productivity",
+      "iconUrl": "https://example.com/icon.png",
+      "appStoreLink": "https://apps.apple.com/app/sample",
+      "lastModified": "2024-03-21T10:30:00Z"
+    }
+  ],
+  "settings": {
+    "iconSize": 60,
+    "theme": "dark"
+  },
+  "metadata": {
+    "lastUpdated": "2024-03-21T10:30:00Z",
+    "version": "1.0"
+  }
+}
