@@ -7,7 +7,7 @@
         <form id="editAppForm" onsubmit="return false;">
             <input type="hidden" id="editAppId">
             <div class="edit-form-grid">
-                <label for="editAppName" class="form-label">App Name</label>
+                <label for="editAppName" class="form-label">App Name *</label>
                 <div class="form-field">
                     <div class="input-group">
                         <input type="text" class="form-control" id="editAppName" required>
@@ -19,7 +19,7 @@
 
                 <label for="editAppCategory" class="form-label">Category</label>
                 <div class="form-field">
-                    <select class="form-select" id="editAppCategory" required>
+                    <select class="form-select" id="editAppCategory">
                         <option value="">Select Category</option>
                         {% for category in categories %}
                         <option value="{{ category | lower }}">{{ category }}</option>
@@ -30,7 +30,7 @@
                 <label for="editIconUrl" class="form-label">Icon URL</label>
                 <div class="form-field">
                     <div class="input-group">
-                        <input type="url" class="form-control" id="editIconUrl" required>
+                        <input type="url" class="form-control" id="editIconUrl">
                         <button type="button" class="btn btn-outline-secondary" onclick="pasteFromClipboard('editIconUrl')" title="Paste from clipboard">
                             <i class="bi bi-clipboard"></i>
                         </button>
@@ -40,7 +40,7 @@
                 <label for="editAppStoreLink" class="form-label">App Store Link</label>
                 <div class="form-field">
                     <div class="input-group">
-                        <input type="url" class="form-control" id="editAppStoreLink" required 
+                        <input type="url" class="form-control" id="editAppStoreLink"
                                pattern="https://apps\.apple\.com/.*"
                                placeholder="https://apps.apple.com/...">
                         <button type="button" class="btn btn-outline-secondary" onclick="pasteFromClipboard('editAppStoreLink')" title="Paste from clipboard">

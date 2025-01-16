@@ -97,15 +97,120 @@ function editApp(event, element) {
     editOverlay.style.display = 'flex';
 }
 
-// Handle settings
-document.addEventListener('DOMContentLoaded', () => {
+// Function to update CSS variables based on settings
+function updateSettings(settings) {
+    if (!settings || typeof settings.iconSize === 'undefined') {
+        console.warn('Invalid settings object:', settings);
+        settings = { iconSize: 60 }; // Default fallback
+    }
+    
+    document.documentElement.style.setProperty('--icon-size', `${settings.iconSize}px`);
+    
+    // Determine the number of grid columns based on icon size
+    let columns;
+    switch (parseInt(settings.iconSize)) {
+        case 48:
+            columns = 6;
+            break;
+        case 54:
+            columns = 5;
+            break;
+        case 60:
+            columns = 4;
+            break;
+        default:
+            columns = 4;
+    }
+    document.documentElement.style.setProperty('--grid-columns', columns);
+}
+
+// Declare variables at the top level so they're available throughout the module
+let iconSizeInputs;
+let shortcutUrlInput;
+
+// Function to fetch settings from the backend
+async function fetchSettings() {
+    try {
+        const response = await fetch('/api/settings');
+        if (!response.ok) throw new Error('Failed to fetch settings');
+        const data = await response.json();
+        // Handle both possible response formats
+        const settings = data.settings || data;
+        updateSettings(settings);
+        
+        // Initialize input values based on fetched settings
+        if (iconSizeInputs) {
+            iconSizeInputs.forEach(input => {
+                if (parseInt(input.value) === settings.iconSize) {
+                    input.checked = true;
+                }
+            });
+        }
+        if (shortcutUrlInput && settings.shortcutUrl) {
+            shortcutUrlInput.value = settings.shortcutUrl;
+        }
+    } catch (error) {
+        console.error('Failed to fetch settings:', error);
+        // Use default settings on error
+        updateSettings({ iconSize: 60 });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+    // Initialize DOM element references first
+    iconSizeInputs = document.querySelectorAll('input[name="iconSize"]');
+    shortcutUrlInput = document.getElementById('shortcutUrl');
+    
+    // Then fetch and apply settings
+    await fetchSettings();
+
+    // Add event listeners for icon size changes
+    iconSizeInputs.forEach(input => {
+        input.addEventListener('change', async (e) => {
+            const size = parseInt(e.target.value);
+            const newSettings = { iconSize: size };
+            
+            try {
+                const response = await fetch('/api/settings', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newSettings)
+                });
+                if (!response.ok) throw new Error('Failed to save settings');
+                const data = await response.json();
+                // Handle both possible response formats
+                const updatedSettings = data.settings || data;
+                updateSettings(updatedSettings);
+            } catch (error) {
+                console.error('Failed to save settings:', error);
+                // Keep the UI consistent with the selected value even if save failed
+                updateSettings(newSettings);
+            }
+        });
+    });
+
+    // Add event listener for shortcut URL changes
+    if (shortcutUrlInput) {
+        shortcutUrlInput.addEventListener('change', async (e) => {
+            const newUrl = e.target.value;
+            try {
+                const response = await fetch('/api/settings', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ shortcutUrl: newUrl })
+                });
+                if (!response.ok) throw new Error('Failed to save shortcut URL');
+            } catch (error) {
+                console.error('Failed to save shortcut URL:', error);
+            }
+        });
+    }
+
     const settingsBtn = document.getElementById('settingsBtn');
     const addAppBtn = document.getElementById('addAppBtn');
     const settingsOverlay = document.getElementById('settingsOverlay');
     const editOverlay = document.getElementById('editOverlay');
     const editAppForm = document.getElementById('editAppForm');
-    const iconSizeInputs = document.querySelectorAll('input[name="iconSize"]');
-    const shortcutUrlInput = document.getElementById('shortcutUrl');
     const categoryFilter = document.getElementById('categoryFilter');
 
     // Show settings
@@ -184,43 +289,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Handle icon size change
-    iconSizeInputs.forEach(input => {
-        input.addEventListener('change', async () => {
-            const size = input.value;
-            document.documentElement.style.setProperty('--icon-size', `${size}px`);
-            
-            try {
-                await fetch('/api/settings', {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ iconSize: parseInt(size) })
-                });
-            } catch (error) {
-                console.error('Failed to save settings:', error);
-            }
-        });
-    });
-
-    // Handle shortcut URL change
-    if (shortcutUrlInput) {
-        let saveTimeout;
-        shortcutUrlInput.addEventListener('input', () => {
-            clearTimeout(saveTimeout);
-            saveTimeout = setTimeout(async () => {
-                try {
-                    await fetch('/api/settings', {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ shortcutUrl: shortcutUrlInput.value })
-                    });
-                } catch (error) {
-                    console.error('Failed to save settings:', error);
-                }
-            }, 500);
-        });
-    }
-
     // Register service worker for PWA
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/static/sw.js')
@@ -228,3 +296,56 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(err => console.log('ServiceWorker registration failed:', err));
     }
 });
+
+// Export data
+async function exportData() {
+    try {
+        const response = await fetch('/api/apps');
+        const data = await response.json();
+        
+        // Create download link
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `app-gallery-backup-${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    } catch (error) {
+        console.error('Failed to export data:', error);
+        alert('Failed to export data');
+    }
+}
+
+// Import data
+async function importData(input) {
+    if (!input.files?.length) return;
+    
+    try {
+        const file = input.files[0];
+        const text = await file.text();
+        const data = JSON.parse(text);
+        
+        if (!data.apps || !Array.isArray(data.apps)) {
+            throw new Error('Invalid data format');
+        }
+        
+        const response = await fetch('/api/apps/import', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        
+        if (!response.ok) throw new Error('Import failed');
+        
+        // Refresh the page to show imported data
+        window.location.reload();
+    } catch (error) {
+        console.error('Failed to import data:', error);
+        alert('Failed to import data: ' + error.message);
+    } finally {
+        input.value = ''; // Reset file input
+    }
+}

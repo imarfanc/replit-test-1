@@ -1,32 +1,110 @@
 {
   "apps": [
     {
-      "id": "2b93d2b3-9584-4475-a933-568874ebf35f",
-      "name": "ChatGPT",
-      "category": "Ai",
-      "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/1a/7d/16/1a7d1606-955e-9d43-547a-ccb915711ce1/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/460x0w.webp",
       "appStoreLink": "https://apps.apple.com/us/app/chatgpt/id6448311069",
-      "lastModified": "2025-01-15T23:03:46.072364",
+      "category": "ai",
+      "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/1a/7d/16/1a7d1606-955e-9d43-547a-ccb915711ce1/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/460x0w.webp",
+      "id": "2b93d2b3-9584-4475-a933-568874ebf35f",
+      "lastLaunched": "2025-01-15T23:07:23.917225",
+      "lastModified": "2025-01-16T04:22:41.999407",
       "launchCount": 1,
-      "lastLaunched": "2025-01-15T23:07:23.917225"
+      "name": "ChatGPT"
     },
     {
-      "id": "4aa6368b-d36e-413b-a9fe-f2d57fc744a8",
-      "name": "Simplenote",
+      "appStoreLink": "https://apps.apple.com/us/app/simplenote/id289429962",
       "category": "productivity",
       "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/70/45/67/7045673b-5e74-76ae-a026-af4b96071bed/AppIcon-0-0-1x_U007epad-0-1-0-85-220.png/460x0w.webp",
-      "appStoreLink": "https://apps.apple.com/us/app/simplenote/id289429962",
-      "lastModified": "2025-01-15T23:04:46.949635",
+      "id": "4aa6368b-d36e-413b-a9fe-f2d57fc744a8",
+      "lastLaunched": "2025-01-15T23:07:27.284776",
+      "lastModified": "2025-01-16T04:22:41.999414",
       "launchCount": 1,
-      "lastLaunched": "2025-01-15T23:07:27.284776"
+      "name": "Simplenote"
+    },
+    {
+      "appStoreLink": "https://apps.apple.com/us/app/m1-invest-bank-smarter/id1071915644",
+      "category": "finance",
+      "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a0/31/f5/a031f539-76bb-6e88-4842-fc9db44d5548/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/434x0w.webp",
+      "id": "56266390-8ab3-4328-899b-f7283d5f23a5",
+      "lastModified": "2025-01-16T04:22:41.999416",
+      "launchCount": 0,
+      "name": "M1"
+    },
+    {
+      "appStoreLink": "https://apps.apple.com/us/app/robinhood-investing-for-all/id938003185",
+      "category": "finance",
+      "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a0/52/83/a0528390-ab57-c50f-0e8b-f00479701ccf/AppIcon-0-0-1x_U007ephone-0-1-0-sRGB-85-220.png/434x0w.webp",
+      "id": "ba1358bc-3b51-4bc8-b9ec-4ea578c940f4",
+      "lastModified": "2025-01-16T04:22:41.999417",
+      "launchCount": 0,
+      "name": "Robinhood"
+    },
+    {
+      "appStoreLink": "https://apps.apple.com/us/app/public-invest-trade/id1204112719",
+      "category": "finance",
+      "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/7d/8a/5c/7d8a5c0e-966b-276f-27bf-ef19a382fd9d/AppIcon-0-0-1x_U007emarketing-0-10-0-85-220.png/434x0w.webp",
+      "id": "5cdd9448-d11b-41f0-8e8a-ad879bb48960",
+      "lastModified": "2025-01-16T04:22:41.999421",
+      "launchCount": 0,
+      "name": "Public"
+    },
+    {
+      "id": "d6a9b88c-1790-4c3a-a34e-e43cdd9fc62d",
+      "name": "Cash App",
+      "category": "finance",
+      "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/63/39/da/6339dacf-3b5b-7a28-fb05-a2fe2068cf7e/AppIcon-0-0-1x_U007ephone-0-1-sRGB-85-220.png/434x0w.webp",
+      "appStoreLink": "https://apps.apple.com/us/app/cash-app-pay-invest-save/id711923939",
+      "launchCount": 0,
+      "lastModified": "2025-01-16T05:07:37.304164"
+    },
+    {
+      "id": "e6d30521-9f1f-4300-af00-bd69ac461af4",
+      "name": "Square",
+      "category": "work",
+      "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/e9/12/6c/e9126c72-cf30-5849-1d3a-9a7df3c26704/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/434x0w.webp",
+      "appStoreLink": "https://apps.apple.com/us/app/square-point-of-sale-pos/id335393788",
+      "launchCount": 0,
+      "lastModified": "2025-01-16T05:08:45.368567"
+    },
+    {
+      "id": "c218001a-44f7-4c8a-b40d-9927ed96bdae",
+      "name": "Square Go",
+      "category": "work",
+      "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/cd/f2/b4/cdf2b49a-e1c0-a136-a904-9d0f9b7b1773/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/434x0w.webp",
+      "appStoreLink": "https://apps.apple.com/us/app/square-go/id1623896123",
+      "launchCount": 0,
+      "lastModified": "2025-01-16T05:09:39.824505"
+    },
+    {
+      "id": "211a2e20-184d-4bb3-a525-ec664c878b98",
+      "name": "Weebly",
+      "category": "work",
+      "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/8f/88/87/8f8887f5-f50a-11dc-8319-b3f6dc31faf6/AppIcon-0-0-1x_U007emarketing-0-6-0-85-220.png/434x0w.webp",
+      "appStoreLink": "https://apps.apple.com/us/app/weebly-by-square/id511158309",
+      "launchCount": 0,
+      "lastModified": "2025-01-16T05:09:52.677057"
+    },
+    {
+      "id": "2ace47c5-0aed-4902-ab7a-3f3589771881",
+      "name": "Dashboard",
+      "category": "work",
+      "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/0e/09/46/0e094611-1fbc-8d9b-cc0d-ffe9d835bb77/AppIcon-0-0-1x_U007ephone-0-85-220.png/434x0w.webp",
+      "appStoreLink": "https://apps.apple.com/us/app/square-dashboard-for-pos/id992958748",
+      "launchCount": 0,
+      "lastModified": "2025-01-16T05:10:08.540254"
     }
   ],
-  "settings": {
-    "iconSize": 54,
-    "theme": "dark"
-  },
   "metadata": {
-    "lastUpdated": "2025-01-15T23:07:27.284783",
+    "lastUpdated": "2025-01-16T05:17:49.027128",
     "version": "1.0"
+  },
+  "settings": {
+    "gridGap": "5",
+    "gridPadding": "0",
+    "iconSize": 54,
+    "theme": "dark",
+    "appNameColor": "#ffffff",
+    "paddingX": "2",
+    "paddingY": "6",
+    "safeAreaTop": "0"
   }
 }

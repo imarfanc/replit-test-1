@@ -1,30 +1,35 @@
 <div id="settingsOverlay" class="overlay" onclick="if(event.target === this) this.style.display='none'">
     <div class="overlay-content">
         <div class="settings-form">
-            <h2 class="mb-4">Settings</h2>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="mb-0">Settings</h2>
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-outline-secondary" onclick="exportData()" title="Export data">
+                        <i class="bi bi-download me-2"></i>Export
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="document.getElementById('importFile').click()" title="Import data">
+                        <i class="bi bi-upload me-2"></i>Import
+                    </button>
+                    <input type="file" id="importFile" accept=".json" style="display: none" onchange="importData(this)">
+                </div>
+            </div>
             <div class="settings-grid">
                 <div class="setting-row">
                     <label for="iconSize" class="form-label">Icon Size</label>
-                    <div class="btn-group" role="group" aria-label="Icon size selection">
-                        <input type="radio" class="btn-check" name="iconSize" id="size24" value="24" {% if data.settings.iconSize == 24 %}checked{% endif %}>
-                        <label class="btn btn-outline-primary" for="size24">24px</label>
-                        
-                        <input type="radio" class="btn-check" name="iconSize" id="size36" value="36" {% if data.settings.iconSize == 36 %}checked{% endif %}>
-                        <label class="btn btn-outline-primary" for="size36">36px</label>
-                        
-                        <input type="radio" class="btn-check" name="iconSize" id="size48" value="48" {% if data.settings.iconSize == 48 %}checked{% endif %}>
-                        <label class="btn btn-outline-primary" for="size48">48px</label>
-                        
-                        <input type="radio" class="btn-check" name="iconSize" id="size54" value="54" {% if data.settings.iconSize == 54 %}checked{% endif %}>
-                        <label class="btn btn-outline-primary" for="size54">54px</label>
-                        
-                        <input type="radio" class="btn-check" name="iconSize" id="size60" value="60" {% if data.settings.iconSize == 60 %}checked{% endif %}>
-                        <label class="btn btn-outline-primary" for="size60">60px</label>
-                        
-                        <input type="radio" class="btn-check" name="iconSize" id="size72" value="72" {% if data.settings.iconSize == 72 %}checked{% endif %}>
-                        <label class="btn btn-outline-primary" for="size72">72px</label>
+                    <div class="d-flex flex-column gap-2">
+                        <div class="btn-group" role="group" aria-label="Icon size selection row 1">
+                            <input type="radio" class="btn-check" name="iconSize" id="size48" value="48" {% if data.settings.iconSize == 48 %}checked{% endif %}>
+                            <label class="btn btn-outline-primary" for="size48">48px</label>
+                            
+                            <input type="radio" class="btn-check" name="iconSize" id="size54" value="54" {% if data.settings.iconSize == 54 %}checked{% endif %}>
+                            <label class="btn btn-outline-primary" for="size54">54px</label>
+                            
+                            <input type="radio" class="btn-check" name="iconSize" id="size60" value="60" {% if data.settings.iconSize == 60 %}checked{% endif %}>
+                            <label class="btn btn-outline-primary" for="size60">60px</label>
+                        </div>
                     </div>
                 </div>
+
                 <div class="setting-row">
                     <label for="shortcutUrl" class="form-label">Shortcut URL</label>
                     <input type="text" class="form-control" id="shortcutUrl" name="shortcutUrl" 

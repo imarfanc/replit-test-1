@@ -66,15 +66,18 @@ class AppDataManager:
             raise AppError("Failed to save app data")
 
 def validate_app_data(data):
-    required = ["name", "category", "iconUrl", "appStoreLink"]
-    if not all(key in data for key in required):
-        raise AppError("Missing required fields")
+    if not data.get("name"):
+        raise AppError("App name is required")
     
-    if not data["appStoreLink"].startswith("https://apps.apple.com/"):
-        raise AppError("Invalid App Store link")
+    # Set defaults for optional fields
+    data["category"] = data.get("category", "").lower() or "uncategorized"
+    data["iconUrl"] = data.get("iconUrl", "")
+    data["appStoreLink"] = data.get("appStoreLink", "")
     
-    # Ensure category is lowercase
-    data["category"] = data["category"].lower()
+    # Validate App Store link format if provided
+    if data["appStoreLink"] and not data["appStoreLink"].startswith("https://apps.apple.com/"):
+        raise AppError("Invalid App Store link format")
+    
     # Initialize launch count for new apps
     if "launchCount" not in data:
         data["launchCount"] = 0
@@ -164,3 +167,24 @@ def increment_launch_count(app_id):
             return jsonify({"status": "success", "launchCount": app["launchCount"]})
     
     abort(404)
+
+@app.route("/api/apps/import", methods=["POST"])
+def import_data():
+    try:
+        data = request.json
+        if not isinstance(data, dict) or "apps" not in data or not isinstance(data["apps"], list):
+            raise AppError("Invalid data format")
+        
+        # Validate each app
+        for app in data["apps"]:
+            validate_app_data(app)
+            if "id" not in app:
+                app["id"] = str(uuid.uuid4())
+            app["lastModified"] = datetime.utcnow().isoformat()
+        
+        # Save the imported data
+        AppDataManager.save_apps(data)
+        return jsonify({"status": "success"})
+    except Exception as e:
+        logger.error(f"Import error: {e}")
+        raise AppError(f"Import failed: {str(e)}")
