@@ -26,7 +26,7 @@ body {
     padding: env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left);
     grid-template-columns: repeat(var(--grid-columns), var(--icon-size));
     justify-content: center;
-    gap: 0;
+    gap: 16px;
 }
 
 .app-card {
@@ -55,7 +55,7 @@ body {
 }
 
 .app-name {
-    font-size: 12px;
+    font-size: 8px;
     text-align: center;
     margin: 0;
     padding: 0 4px;
