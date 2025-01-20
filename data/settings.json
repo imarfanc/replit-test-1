@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "lastUpdated": "2025-01-20T08:18:44.311586",
+    "version": "1.0"
+  },
+  "settings": {
+    "gridGap": "5",
+    "gridPadding": "0",
+    "iconSize": 54,
+    "theme": "dark",
+    "appNameColor": "#ffffff",
+    "paddingX": "2",
+    "paddingY": "6",
+    "safeAreaTop": "0"
+  }
+}

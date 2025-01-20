@@ -303,8 +303,8 @@ async function exportData() {
         const response = await fetch('/api/apps');
         const data = await response.json();
         
-        // Create download link
-        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        // Create download link with just the apps array
+        const blob = new Blob([JSON.stringify(data.apps, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
@@ -326,9 +326,14 @@ async function importData(input) {
     try {
         const file = input.files[0];
         const text = await file.text();
-        const data = JSON.parse(text);
+        const apps = JSON.parse(text);
         
-        if (!data.apps || !Array.isArray(data.apps)) {
+        // Check if the imported data is an array (new format) or has an apps property (old format)
+        const data = {
+            apps: Array.isArray(apps) ? apps : (apps.apps || [])
+        };
+        
+        if (!Array.isArray(data.apps)) {
             throw new Error('Invalid data format');
         }
         

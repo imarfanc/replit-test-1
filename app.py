@@ -15,25 +15,42 @@ app.secret_key = os.urandom(24)
 
 class Config:
     JSON_FILE = "data/apps.json"
-    CATEGORIES_FILE = "data/categories.json"
+    SETTINGS_FILE = "data/settings.json"
     DEFAULT_ICON_SIZE = 60
     BACKUP_COUNT = 5
 
 class AppError(Exception):
     pass
 
-def load_categories():
+def load_settings():
     try:
-        if not os.path.exists(Config.CATEGORIES_FILE):
-            os.makedirs(os.path.dirname(Config.CATEGORIES_FILE), exist_ok=True)
-            return []
+        if not os.path.exists(Config.SETTINGS_FILE):
+            os.makedirs(os.path.dirname(Config.SETTINGS_FILE), exist_ok=True)
+            default_settings = {
+                "metadata": {
+                    "lastUpdated": datetime.utcnow().isoformat(),
+                    "version": "1.0"
+                },
+                "settings": {
+                    "gridGap": "5",
+                    "gridPadding": "0",
+                    "iconSize": Config.DEFAULT_ICON_SIZE,
+                    "theme": "dark",
+                    "appNameColor": "#ffffff",
+                    "paddingX": "2",
+                    "paddingY": "6",
+                    "safeAreaTop": "0"
+                }
+            }
+            with open(Config.SETTINGS_FILE, 'w') as f:
+                json.dump(default_settings, f, indent=2)
+            return default_settings
         
-        with open(Config.CATEGORIES_FILE, 'r') as f:
-            data = json.load(f)
-            return data.get('categories', [])
+        with open(Config.SETTINGS_FILE, 'r') as f:
+            return json.load(f)
     except Exception as e:
-        logger.error(f"Error loading categories: {e}")
-        return []
+        logger.error(f"Error loading settings: {e}")
+        raise AppError("Failed to load settings data")
 
 class AppDataManager:
     @staticmethod
@@ -41,16 +58,15 @@ class AppDataManager:
         try:
             if not os.path.exists(Config.JSON_FILE):
                 os.makedirs(os.path.dirname(Config.JSON_FILE), exist_ok=True)
-                return {"apps": [], "settings": {"iconSize": Config.DEFAULT_ICON_SIZE, "theme": "dark"}, 
-                        "metadata": {"lastUpdated": datetime.utcnow().isoformat(), "version": "1.0"}}
+                return {"apps": []}
             
             with open(Config.JSON_FILE, 'r') as f:
-                data = json.load(f)
+                apps = json.load(f)
                 # Ensure launch count exists for all apps
-                for app in data.get("apps", []):
+                for app in apps:
                     if "launchCount" not in app:
                         app["launchCount"] = 0
-                return data
+                return {"apps": apps}
         except Exception as e:
             logger.error(f"Error loading apps: {e}")
             raise AppError("Failed to load app data")
@@ -58,9 +74,9 @@ class AppDataManager:
     @staticmethod
     def save_apps(data):
         try:
-            data["metadata"]["lastUpdated"] = datetime.utcnow().isoformat()
+            # Save just the array of apps
             with open(Config.JSON_FILE, 'w') as f:
-                json.dump(data, f, indent=2)
+                json.dump(data["apps"], f, indent=2)
         except Exception as e:
             logger.error(f"Error saving apps: {e}")
             raise AppError("Failed to save app data")
@@ -82,11 +98,25 @@ def validate_app_data(data):
     if "launchCount" not in data:
         data["launchCount"] = 0
 
-@app.route("/")
-def home():
-    data = AppDataManager.load_apps()
-    categories = load_categories()
-    return render_template("index.html", data=data, categories=categories)
+@app.route('/')
+def index():
+    try:
+        apps_data = AppDataManager.load_apps()
+        settings_data = load_settings()
+        
+        # Extract unique categories from apps
+        categories = sorted(list(set(app["category"] for app in apps_data["apps"])))
+        
+        combined_data = {
+            **apps_data,
+            "settings": settings_data["settings"],
+            "metadata": settings_data["metadata"],
+            "categories": categories
+        }
+        return render_template('index.html', data=combined_data)
+    except Exception as e:
+        logger.error(f"Error loading data: {e}")
+        abort(500)
 
 @app.route("/api/apps", methods=["GET", "POST", "PUT"])
 def manage_apps():
@@ -117,19 +147,23 @@ def manage_apps():
 
 @app.route("/api/settings", methods=["GET", "PUT"])
 def manage_settings():
-    data = AppDataManager.load_apps()
-    
     if request.method == "GET":
-        return jsonify(data["settings"])
+        settings_data = load_settings()
+        return jsonify(settings_data["settings"])
     
     if request.method == "PUT":
-        settings = request.json
-        if "iconSize" in settings:
-            if not (24 <= int(settings["iconSize"]) <= 96):
+        settings_data = load_settings()
+        new_settings = request.json
+        if "iconSize" in new_settings:
+            if not (24 <= int(new_settings["iconSize"]) <= 96):
                 raise AppError("Invalid icon size")
-        data["settings"].update(settings)
-        AppDataManager.save_apps(data)
-        return jsonify({"status": "success", "settings": data["settings"]})
+        settings_data["settings"].update(new_settings)
+        settings_data["metadata"]["lastUpdated"] = datetime.utcnow().isoformat()
+        
+        with open(Config.SETTINGS_FILE, 'w') as f:
+            json.dump(settings_data, f, indent=2)
+        
+        return jsonify({"status": "success", "settings": settings_data["settings"]})
 
 @app.errorhandler(AppError)
 def handle_app_error(error):
@@ -181,6 +215,10 @@ def import_data():
             if "id" not in app:
                 app["id"] = str(uuid.uuid4())
             app["lastModified"] = datetime.utcnow().isoformat()
+            if "launchCount" not in app:
+                app["launchCount"] = 0
+            if "lastLaunched" not in app:
+                app["lastLaunched"] = None
         
         # Save the imported data
         AppDataManager.save_apps(data)
