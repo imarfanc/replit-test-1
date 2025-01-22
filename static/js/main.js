@@ -202,6 +202,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!appCard) return;
         
         e.preventDefault();
+        e.stopPropagation();
+        
         if (document.body.classList.contains('edit-mode')) {
             editApp(e, appCard);
         } else {
