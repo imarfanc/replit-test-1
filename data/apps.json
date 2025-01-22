@@ -45,9 +45,10 @@
     "category": "productivity",
     "link": "https://apps.apple.com/us/app/things-3/id904237743",
     "appStoreLink": "",
-    "launchCount": 0,
+    "launchCount": 1,
     "id": "5c460198-b945-44d8-8e13-867de76c5fc0",
-    "lastModified": "2025-01-20T08:25:34.424403"
+    "lastModified": "2025-01-20T08:25:34.424403",
+    "lastLaunched": "2025-01-22T11:04:53.120909"
   },
   {
     "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d2/bd/1f/d2bd1f2f-ac9d-f4f3-aed8-83ba601a37b5/AppIcon-0-1x_U007epad-0-1-0-85-220-0.png/434x0w.webp",
@@ -65,10 +66,10 @@
     "category": "productivity",
     "link": "https://apps.apple.com/us/app/deepseek-ai-assistant/id6737597349",
     "appStoreLink": "",
-    "launchCount": 1,
+    "launchCount": 2,
     "id": "8e818e86-0b33-4fe5-927f-ab9b1d4d49e0",
     "lastModified": "2025-01-20T08:25:34.424419",
-    "lastLaunched": "2025-01-22T08:40:07.308059"
+    "lastLaunched": "2025-01-22T11:05:07.635121"
   },
   {
     "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/09/06/2e/09062ec9-070e-6a65-9dd1-63cf7345bae7/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/434x0w.webp",
