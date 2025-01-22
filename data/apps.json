@@ -1044,15 +1044,14 @@
     "lastModified": "2025-01-20T08:25:34.425093"
   },
   {
-    "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/90/7e/3d/907e3d2b-665c-6184-aa97-a2cb3e49a654/logo_youtube_2024_q4_color-0-1x_U007emarketing-0-0-0-6-0-0-0-85-220-0.png/434x0w.webp",
-    "name": "YouTube: Watch, Listen, Stream",
-    "category": "media",
-    "link": "https://apps.apple.com/us/app/youtube-watch-listen-stream/id544007664",
-    "favorite": false,
-    "appStoreLink": "",
-    "launchCount": 0,
     "id": "eab47fd3-2408-41aa-a96a-adc52f839592",
-    "lastModified": "2025-01-20T08:25:34.425100"
+    "name": "YouTube",
+    "category": "uncategorized",
+    "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/90/7e/3d/907e3d2b-665c-6184-aa97-a2cb3e49a654/logo_youtube_2024_q4_color-0-1x_U007emarketing-0-0-0-6-0-0-0-85-220-0.png/434x0w.webp",
+    "appStoreLink": "",
+    "launchCount": 1,
+    "lastModified": "2025-01-22T08:44:49.745710",
+    "lastLaunched": "2025-01-22T08:44:52.231621"
   },
   {
     "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/5a/cc/26/5acc262f-c1c0-d7c0-0c33-8de6902fa138/Prod-0-0-1x_U007ephone-0-1-0-sRGB-85-220.png/434x0w.webp",
