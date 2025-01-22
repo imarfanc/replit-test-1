@@ -156,10 +156,36 @@ async function fetchSettings() {
     }
 }
 
+// Sort apps function
+function sortApps(sortBy) {
+    const appGrid = document.querySelector('.app-grid');
+    const apps = Array.from(appGrid.children);
+    
+    apps.sort((a, b) => {
+        if (sortBy === 'name') {
+            return a.dataset.appName.localeCompare(b.dataset.appName);
+        } else if (sortBy === 'category') {
+            return a.dataset.category.localeCompare(b.dataset.category);
+        } else if (sortBy === 'launchCount') {
+            return (parseInt(b.dataset.launchCount) || 0) - (parseInt(a.dataset.launchCount) || 0);
+        }
+    });
+    
+    apps.forEach(app => appGrid.appendChild(app));
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     // Initialize DOM element references first
     iconSizeInputs = document.querySelectorAll('input[name="iconSize"]');
     shortcutUrlInput = document.getElementById('shortcutUrl');
+    
+    // Add sort dropdown listeners
+    document.querySelectorAll('.dropdown-item[data-sort]').forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            sortApps(e.target.dataset.sort);
+        });
+    });
     
     // Then fetch and apply settings
     await fetchSettings();
