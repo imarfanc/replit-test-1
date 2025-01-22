@@ -104,8 +104,14 @@ def index():
         apps_data = AppDataManager.load_apps()
         settings_data = load_settings()
         
-        # Extract unique categories from apps
-        categories = sorted(list(set(app["category"] for app in apps_data["apps"])))
+        # Load categories from categories.json
+        try:
+            with open('data/categories.json', 'r') as f:
+                categories_data = json.load(f)
+            categories = categories_data.get('categories', [])
+        except Exception as e:
+            logger.error(f"Error loading categories: {e}")
+            categories = []
         
         combined_data = {
             **apps_data,
