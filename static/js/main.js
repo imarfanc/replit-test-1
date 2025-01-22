@@ -199,13 +199,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Handle app clicks
     document.addEventListener('click', (e) => {
         const appCard = e.target.closest('.app-card');
-        if (appCard) {
-            if (document.body.classList.contains('edit-mode')) {
-                e.preventDefault();
-                editApp(e, appCard);
-            } else {
-                launchApp(appCard);
-            }
+        if (!appCard) return;
+        
+        e.preventDefault();
+        if (document.body.classList.contains('edit-mode')) {
+            editApp(e, appCard);
+        } else {
+            launchApp(appCard);
         }
     });
     
