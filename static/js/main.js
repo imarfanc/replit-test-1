@@ -186,6 +186,23 @@ document.addEventListener('DOMContentLoaded', async () => {
             sortApps(e.target.dataset.sort);
         });
     });
+
+    // Edit mode functionality
+    const editModeToggle = document.getElementById('editModeToggle');
+    if (editModeToggle) {
+        editModeToggle.addEventListener('change', () => {
+            document.body.classList.toggle('edit-mode', editModeToggle.checked);
+        });
+    }
+
+    // Handle app clicks in edit mode
+    document.addEventListener('click', (e) => {
+        const appCard = e.target.closest('.app-card');
+        if (appCard && document.body.classList.contains('edit-mode')) {
+            e.preventDefault();
+            editApp(e, appCard);
+        }
+    });
     
     // Then fetch and apply settings
     await fetchSettings();

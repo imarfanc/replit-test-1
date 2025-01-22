@@ -144,6 +144,27 @@ body {
     border-color: var(--app-text-color);
 }
 
+.edit-mode .app-card {
+    position: relative;
+}
+
+.edit-mode .app-card::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 2px dashed var(--app-text-color);
+    border-radius: 24%;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.edit-mode .app-card:hover::before {
+    opacity: 1;
+}
+
 .btn-secondary {
     background-color: transparent;
     border-color: var(--app-card-hover-shadow);
