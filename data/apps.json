@@ -15,9 +15,10 @@
     "category": "productivity",
     "link": "https://apps.apple.com/us/app/chatgpt/id6448311069",
     "appStoreLink": "",
-    "launchCount": 0,
+    "launchCount": 1,
     "id": "7edeb183-1608-4e5a-aa85-29ac2731a633",
-    "lastModified": "2025-01-20T08:25:34.424370"
+    "lastModified": "2025-01-20T08:25:34.424370",
+    "lastLaunched": "2025-01-22T17:46:38.821372"
   },
   {
     "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/33/cc/a6/33cca653-deb8-c6f6-839f-7c3e3c904de5/AppIcon-0-0-1x_U007ephone-0-0-0-8-0-0-0-85-220.png/434x0w.webp",
@@ -1076,14 +1077,13 @@
     "lastModified": "2025-01-20T08:25:34.425125"
   },
   {
+    "id": "1d77dd7b-3a1a-44ba-808d-bc0e589fc28e",
+    "name": "Twitch",
+    "category": "uncategorized",
     "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/08/d9/bb/08d9bbf3-e629-3f21-9841-179fa0fc4b0b/TwitchAppIcon-0-0-1x_U007emarketing-0-7-0-0-0-0-85-220.png/434x0w.webp",
-    "name": "Twitch: Live Streaming",
-    "category": "photo & video",
-    "link": "https://apps.apple.com/us/app/twitch-live-streaming/id460177396",
     "appStoreLink": "",
     "launchCount": 0,
-    "id": "1d77dd7b-3a1a-44ba-808d-bc0e589fc28e",
-    "lastModified": "2025-01-20T08:25:34.425135"
+    "lastModified": "2025-01-22T17:46:14.438705"
   },
   {
     "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/7e/ed/af/7eedaf2d-9263-c021-549c-9d08e0709080/AppIcon-1x_U007emarketing-0-11-0-85-220-0.png/434x0w.webp",
