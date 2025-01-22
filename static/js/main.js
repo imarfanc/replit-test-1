@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Handle app clicks
-    document.addEventListener('click', (e) => {
+    document.addEventListener('click', async (e) => {
         const appCard = e.target.closest('.app-card');
         if (!appCard) return;
         
@@ -207,7 +207,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (document.body.classList.contains('edit-mode')) {
             editApp(e, appCard);
         } else {
-            launchApp(appCard);
+            const appId = appCard.dataset.appId;
+            try {
+                const response = await fetch(`/api/apps/${appId}/launch`, {
+                    method: 'POST'
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    appCard.dataset.launchCount = data.launchCount;
+                    launchApp(appCard);
+                }
+            } catch (error) {
+                console.error('Failed to update launch count:', error);
+                launchApp(appCard);
+            }
         }
     });
     
