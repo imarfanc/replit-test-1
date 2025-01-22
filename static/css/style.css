@@ -151,11 +151,11 @@ body {
 .edit-mode .app-card::before {
     content: '';
     position: absolute;
-    top: -4px;
-    left: -4px;
-    right: -4px;
-    bottom: -4px;
-    border: 2px dashed var(--app-text-color);
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 1px dashed var(--app-text-color);
     border-radius: 24%;
     opacity: 0.5;
     pointer-events: none;

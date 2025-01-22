@@ -188,19 +188,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // Edit mode functionality
-    const editModeToggle = document.getElementById('editModeToggle');
-    if (editModeToggle) {
-        editModeToggle.addEventListener('change', () => {
-            document.body.classList.toggle('edit-mode', editModeToggle.checked);
+    const editModeBtn = document.getElementById('editModeBtn');
+    if (editModeBtn) {
+        editModeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('edit-mode');
+            editModeBtn.classList.toggle('active');
         });
     }
 
-    // Handle app clicks in edit mode
+    // Handle app clicks
     document.addEventListener('click', (e) => {
         const appCard = e.target.closest('.app-card');
-        if (appCard && document.body.classList.contains('edit-mode')) {
-            e.preventDefault();
-            editApp(e, appCard);
+        if (appCard) {
+            if (document.body.classList.contains('edit-mode')) {
+                e.preventDefault();
+                editApp(e, appCard);
+            } else {
+                launchApp(appCard);
+            }
         }
     });
     
