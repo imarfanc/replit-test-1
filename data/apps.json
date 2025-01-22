@@ -76,9 +76,10 @@
     "category": "productivity",
     "link": "https://apps.apple.com/us/app/dropbox-files-photo-storage/id327630330",
     "appStoreLink": "",
-    "launchCount": 0,
+    "launchCount": 1,
     "id": "9de805b5-e16e-404f-bb8e-73a08fc2c460",
-    "lastModified": "2025-01-20T08:25:34.424432"
+    "lastModified": "2025-01-20T08:25:34.424432",
+    "lastLaunched": "2025-01-22T08:49:44.953482"
   },
   {
     "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/5e/f0/7d/5ef07db3-c051-154f-3546-71f3b9c34e72/AppIcon-0-1x_U007epad-0-1-0-85-220-0.jpeg/434x0w.webp",
@@ -1050,9 +1051,9 @@
     "category": "uncategorized",
     "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/90/7e/3d/907e3d2b-665c-6184-aa97-a2cb3e49a654/logo_youtube_2024_q4_color-0-1x_U007emarketing-0-0-0-6-0-0-0-85-220-0.png/434x0w.webp",
     "appStoreLink": "",
-    "launchCount": 1,
+    "launchCount": 4,
     "lastModified": "2025-01-22T08:44:49.745710",
-    "lastLaunched": "2025-01-22T08:44:52.231621"
+    "lastLaunched": "2025-01-22T11:02:12.938936"
   },
   {
     "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/5a/cc/26/5acc262f-c1c0-d7c0-0c33-8de6902fa138/Prod-0-0-1x_U007ephone-0-1-0-sRGB-85-220.png/434x0w.webp",
