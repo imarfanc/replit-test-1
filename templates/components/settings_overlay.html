@@ -7,7 +7,8 @@
                     <button type="button" class="btn btn-outline-secondary" onclick="exportData()" title="Export data">
                         <i class="bi bi-download me-2"></i>Export
                     </button>
-                    <button type="button" class="btn btn-outline-secondary" onclick="document.getElementById('importFile').click()" title="Import data">
+                    <button type="button" class="btn btn-outline-secondary"
+                        onclick="document.getElementById('importFile').click()" title="Import data">
                         <i class="bi bi-upload me-2"></i>Import
                     </button>
                     <input type="file" id="importFile" accept=".json" style="display: none" onchange="importData(this)">
@@ -18,13 +19,16 @@
                     <label for="iconSize" class="form-label">Icon Size</label>
                     <div class="d-flex flex-column gap-2">
                         <div class="btn-group" role="group" aria-label="Icon size selection row 1">
-                            <input type="radio" class="btn-check" name="iconSize" id="size48" value="48" {% if data.settings.iconSize == 48 %}checked{% endif %}>
+                            <input type="radio" class="btn-check" name="iconSize" id="size48" value="48" {% if
+                                data.settings.iconSize==48 %}checked{% endif %}>
                             <label class="btn btn-outline-primary" for="size48">48px</label>
-                            
-                            <input type="radio" class="btn-check" name="iconSize" id="size54" value="54" {% if data.settings.iconSize == 54 %}checked{% endif %}>
+
+                            <input type="radio" class="btn-check" name="iconSize" id="size54" value="54" {% if
+                                data.settings.iconSize==54 %}checked{% endif %}>
                             <label class="btn btn-outline-primary" for="size54">54px</label>
-                            
-                            <input type="radio" class="btn-check" name="iconSize" id="size60" value="60" {% if data.settings.iconSize == 60 %}checked{% endif %}>
+
+                            <input type="radio" class="btn-check" name="iconSize" id="size60" value="60" {% if
+                                data.settings.iconSize==60 %}checked{% endif %}>
                             <label class="btn btn-outline-primary" for="size60">60px</label>
                         </div>
                     </div>
@@ -32,14 +36,19 @@
 
                 <div class="setting-row">
                     <label for="shortcutUrl" class="form-label">Shortcut URL</label>
-                    <input type="text" class="form-control" id="shortcutUrl" name="shortcutUrl" 
-                           value="{{ data.settings.shortcutUrl if data.settings.shortcutUrl else 'shortcuts://run-shortcut?name=open_iOS_Apps' }}"
-                           placeholder="Enter iOS Shortcut URL">
+                    <input type="text" class="form-control" id="shortcutUrl" name="shortcutUrl"
+                        value="{{ data.settings.shortcutUrl if data.settings.shortcutUrl else 'shortcuts://run-shortcut?name=open_iOS_Apps' }}"
+                        placeholder="Enter iOS Shortcut URL">
                 </div>
-                
+
             </div>
             <div class="d-flex justify-content-end mt-3">
-                <button type="button" class="btn btn-secondary" onclick="document.getElementById('settingsOverlay').style.display='none'">Close</button>
+                <button type="button" class="btn btn-outline-secondary me-2" onclick="fixJsonStructure()"
+                    title="Fix JSON Structure">
+                    <i class="bi bi-wrench me-2"></i>Fix JSON Structure
+                </button>
+                <button type="button" class="btn btn-secondary"
+                    onclick="document.getElementById('settingsOverlay').style.display='none'">Close</button>
             </div>
         </div>
     </div>

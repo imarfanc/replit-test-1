@@ -16,7 +16,7 @@ async function pasteFromClipboard(targetId) {
 function searchAppStore() {
     const appName = document.getElementById('editAppName')?.value;
     if (!appName) return;
-    
+
     const query = encodeURIComponent(`${appName} app store ios`);
     window.open(`https://duckduckgo.com/?q=${query}`, '_blank');
 }
@@ -25,16 +25,16 @@ function searchAppStore() {
 async function deleteApp() {
     const appId = document.getElementById('editAppId')?.value;
     if (!appId) return;
-    
+
     if (!confirm('Are you sure you want to delete this app?')) return;
-    
+
     try {
         const response = await fetch(`/api/apps/${appId}`, {
             method: 'DELETE'
         });
-        
+
         if (!response.ok) throw new Error('Failed to delete app');
-        
+
         // Refresh the page to show updated data
         window.location.reload();
     } catch (error) {
@@ -50,7 +50,7 @@ async function launchApp(element) {
     const shortcutUrlInput = document.getElementById('shortcutUrl');
     const shortcutUrl = shortcutUrlInput ? shortcutUrlInput.value : 'shortcuts://run-shortcut?name=open_iOS_Apps';
     const url = `${shortcutUrl}&input=${encodeURIComponent(appName)}`;
-    
+
     // Increment launch count
     try {
         await fetch(`/api/apps/${appId}/launch`, {
@@ -59,7 +59,7 @@ async function launchApp(element) {
     } catch (error) {
         console.error('Failed to update launch count:', error);
     }
-    
+
     window.location.href = url;
 }
 
@@ -77,7 +77,7 @@ function editApp(event, element) {
     const editAppStoreLink = document.getElementById('editAppStoreLink');
     const editOverlayTitle = document.getElementById('editOverlayTitle');
     const launchCountDisplay = document.getElementById('launchCountDisplay');
-    
+
     editOverlay.dataset.mode = 'edit';
     if (editOverlayTitle) editOverlayTitle.textContent = 'Edit App';
     if (editAppId) editAppId.value = element.dataset.appId || '';
@@ -85,15 +85,15 @@ function editApp(event, element) {
     if (editAppCategory) editAppCategory.value = element.dataset.category || '';
     if (editIconUrl) editIconUrl.value = element.querySelector('img')?.src || '';
     if (editAppStoreLink) editAppStoreLink.value = element.dataset.appStoreLink || '';
-    
+
     // Display launch count if available
     if (launchCountDisplay) {
         const launchCount = element.dataset.launchCount || '0';
-        const lastLaunched = element.dataset.lastLaunched ? 
+        const lastLaunched = element.dataset.lastLaunched ?
             new Date(element.dataset.lastLaunched).toLocaleDateString() : 'Never';
         launchCountDisplay.textContent = `Launched ${launchCount} times • Last: ${lastLaunched}`;
     }
-    
+
     editOverlay.style.display = 'flex';
 }
 
@@ -103,9 +103,9 @@ function updateSettings(settings) {
         console.warn('Invalid settings object:', settings);
         settings = { iconSize: 60 }; // Default fallback
     }
-    
+
     document.documentElement.style.setProperty('--icon-size', `${settings.iconSize}px`);
-    
+
     // Determine the number of grid columns based on icon size
     let columns;
     switch (parseInt(settings.iconSize)) {
@@ -137,7 +137,7 @@ async function fetchSettings() {
         // Handle both possible response formats
         const settings = data.settings || data;
         updateSettings(settings);
-        
+
         // Initialize input values based on fetched settings
         if (iconSizeInputs) {
             iconSizeInputs.forEach(input => {
@@ -160,7 +160,7 @@ async function fetchSettings() {
 function sortApps(sortBy) {
     const appGrid = document.querySelector('.app-grid');
     const apps = Array.from(appGrid.children);
-    
+
     apps.sort((a, b) => {
         if (sortBy === 'name') {
             return a.dataset.appName.localeCompare(b.dataset.appName);
@@ -170,7 +170,7 @@ function sortApps(sortBy) {
             return (parseInt(b.dataset.launchCount) || 0) - (parseInt(a.dataset.launchCount) || 0);
         }
     });
-    
+
     apps.forEach(app => appGrid.appendChild(app));
 }
 
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Initialize DOM element references first
     iconSizeInputs = document.querySelectorAll('input[name="iconSize"]');
     shortcutUrlInput = document.getElementById('shortcutUrl');
-    
+
     // Add sort dropdown listeners
     document.querySelectorAll('.dropdown-item[data-sort]').forEach(item => {
         item.addEventListener('click', (e) => {
@@ -200,10 +200,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.addEventListener('click', async (e) => {
         const appCard = e.target.closest('.app-card');
         if (!appCard) return;
-        
+
         e.preventDefault();
         e.stopPropagation();
-        
+
         if (document.body.classList.contains('edit-mode')) {
             editApp(e, appCard);
         } else {
@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
     });
-    
+
     // Then fetch and apply settings
     await fetchSettings();
 
@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         input.addEventListener('change', async (e) => {
             const size = parseInt(e.target.value);
             const newSettings = { iconSize: size };
-            
+
             try {
                 const response = await fetch('/api/settings', {
                     method: 'PUT',
@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const editIconUrl = document.getElementById('editIconUrl');
             const editAppStoreLink = document.getElementById('editAppStoreLink');
             const editOverlayTitle = document.getElementById('editOverlayTitle');
-            
+
             editOverlay.dataset.mode = 'add';
             if (editOverlayTitle) editOverlayTitle.textContent = 'Add App';
             if (editAppId) editAppId.value = '';
@@ -300,7 +300,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (editAppCategory) editAppCategory.value = '';
             if (editIconUrl) editIconUrl.value = '';
             if (editAppStoreLink) editAppStoreLink.value = '';
-            
+
             editOverlay.style.display = 'flex';
         });
     }
@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 });
 
                 if (!response.ok) throw new Error('Failed to save app');
-                
+
                 // Refresh the page to show updated data
                 window.location.reload();
             } catch (error) {
@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         categoryFilter.addEventListener('change', () => {
             const selectedCategory = categoryFilter.value.toLowerCase();
             const apps = document.querySelectorAll('.app-card');
-            
+
             apps.forEach(app => {
                 const appCategory = app.dataset.category;
                 if (!selectedCategory || appCategory === selectedCategory) {
@@ -365,7 +365,7 @@ async function exportData() {
     try {
         const response = await fetch('/api/apps');
         const data = await response.json();
-        
+
         // Create download link with just the apps array
         const blob = new Blob([JSON.stringify(data.apps, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
@@ -385,29 +385,29 @@ async function exportData() {
 // Import data
 async function importData(input) {
     if (!input.files?.length) return;
-    
+
     try {
         const file = input.files[0];
         const text = await file.text();
         const apps = JSON.parse(text);
-        
+
         // Check if the imported data is an array (new format) or has an apps property (old format)
         const data = {
             apps: Array.isArray(apps) ? apps : (apps.apps || [])
         };
-        
+
         if (!Array.isArray(data.apps)) {
             throw new Error('Invalid data format');
         }
-        
+
         const response = await fetch('/api/apps/import', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         });
-        
+
         if (!response.ok) throw new Error('Import failed');
-        
+
         // Refresh the page to show imported data
         window.location.reload();
     } catch (error) {
@@ -415,5 +415,47 @@ async function importData(input) {
         alert('Failed to import data: ' + error.message);
     } finally {
         input.value = ''; // Reset file input
+    }
+}
+
+// Fix JSON Structure
+async function fixJsonStructure() {
+    try {
+        const response = await fetch('/api/apps');
+        const data = await response.json();
+        const apps = data.apps || [];
+
+        // Fix each app's structure
+        const fixedApps = apps.map(app => {
+            const fixedApp = {
+                id: app.id,
+                name: app.name,
+                category: app.category || 'uncategorized',
+                iconUrl: app.iconUrl,
+                appStoreLink: app.appStoreLink || app.link || '',
+                launchCount: app.launchCount || 0,
+                lastModified: app.lastModified || new Date().toISOString(),
+                lastLaunched: app.lastLaunched || null
+            };
+            return fixedApp;
+        });
+
+        // Save the fixed structure
+        const saveResponse = await fetch('/api/apps/import', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ apps: fixedApps })
+        });
+
+        if (!saveResponse.ok) throw new Error('Failed to save fixed structure');
+
+        // Show success message
+        alert('JSON structure has been fixed successfully!');
+
+        // Refresh the page to show updated data
+        window.location.reload();
+    } catch (error) {
+        console.error('Failed to fix JSON structure:', error);
+        alert('Failed to fix JSON structure: ' + error.message);
     }
 }
