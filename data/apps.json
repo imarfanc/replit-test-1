@@ -66,10 +66,10 @@
     "category": "productivity",
     "link": "https://apps.apple.com/us/app/deepseek-ai-assistant/id6737597349",
     "appStoreLink": "",
-    "launchCount": 2,
+    "launchCount": 3,
     "id": "8e818e86-0b33-4fe5-927f-ab9b1d4d49e0",
     "lastModified": "2025-01-20T08:25:34.424419",
-    "lastLaunched": "2025-01-22T11:05:07.635121"
+    "lastLaunched": "2025-01-22T11:08:31.864117"
   },
   {
     "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/09/06/2e/09062ec9-070e-6a65-9dd1-63cf7345bae7/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/434x0w.webp",
@@ -134,15 +134,14 @@
     "lastModified": "2025-01-20T08:25:34.424470"
   },
   {
-    "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/cd/12/45/cd124518-8e1b-d991-6ad9-6aa274e65493/AppIconProd-0-0-1x_U007emarketing-0-11-0-85-220.png/434x0w.webp",
-    "name": "Notion: Notes, Tasks, AI",
-    "category": "productivity",
-    "link": "https://apps.apple.com/us/app/notion-notes-tasks-ai/id1232780281",
-    "appStoreLink": "",
-    "launchCount": 1,
     "id": "0b660ac1-db5a-4db7-adf6-c4111c5fc2b9",
-    "lastModified": "2025-01-20T08:25:34.424477",
-    "lastLaunched": "2025-01-22T08:48:03.623864"
+    "name": "Notion",
+    "category": "uncategorized",
+    "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/cd/12/45/cd124518-8e1b-d991-6ad9-6aa274e65493/AppIconProd-0-0-1x_U007emarketing-0-11-0-85-220.png/434x0w.webp",
+    "appStoreLink": "",
+    "launchCount": 3,
+    "lastModified": "2025-01-22T11:09:20.113253",
+    "lastLaunched": "2025-01-22T11:09:24.697301"
   },
   {
     "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d3/1a/62/d31a62a9-bc20-b7ef-b95b-865688cb9de4/AppIcon-0-0-1x_U007epad-0-1-85-220.png/434x0w.webp",
