@@ -38,3 +38,24 @@ waitForPort = 5000
 [[ports]]
 localPort = 5000
 externalPort = 80
+
+# Additional configurations that won't affect existing setup
+[env]
+PYTHONPATH = "${PYTHONPATH}:${REPL_HOME}"
+FLASK_DEBUG = "1"
+
+[packager.features]
+packageSearch = true
+guessImports = true
+
+[languages.python.languageServer]
+start = ["pylsp"]
+
+[debugger]
+support = true
+
+[debugger.interactive]
+transport = "localhost:0"
+
+[unitTest]
+language = "python"
