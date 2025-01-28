@@ -83,7 +83,7 @@ function editApp(event, element) {
     if (editAppId) editAppId.value = element.dataset.appId || '';
     if (editAppName) editAppName.value = element.dataset.appName || '';
     if (editAppCategory) editAppCategory.value = element.dataset.category || '';
-    if (editIconUrl) editIconUrl.value = element.querySelector('img')?.src || '';
+    if (editIconUrl) editIconUrl.value = element.dataset.iconUrl || '';
     if (editAppStoreLink) editAppStoreLink.value = element.dataset.appStoreLink || '';
 
     // Display launch count if available
@@ -309,28 +309,41 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (editAppForm) {
         editAppForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
             const formData = {
                 id: document.getElementById('editAppId')?.value,
                 name: document.getElementById('editAppName')?.value,
-                category: document.getElementById('editAppCategory')?.value,
-                iconUrl: document.getElementById('editIconUrl')?.value,
-                appStoreLink: document.getElementById('editAppStoreLink')?.value
+                category: document.getElementById('editAppCategory')?.value || 'uncategorized',
+                iconUrl: document.getElementById('editIconUrl')?.value || '',
+                appStoreLink: document.getElementById('editAppStoreLink')?.value || '',
             };
 
+            const isEdit = formData.id && formData.id.length > 0;
+            const url = '/api/apps';  // Remove the conditional URL since we're using method to differentiate
+            const method = isEdit ? 'PUT' : 'POST';
+
             try {
-                const method = formData.id ? 'PUT' : 'POST';
-                const response = await fetch('/api/apps', {
+                const response = await fetch(url, {
                     method,
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(formData)
                 });
 
-                if (!response.ok) throw new Error('Failed to save app');
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to save app');
+                }
 
-                // Refresh the page to show updated data
-                window.location.reload();
+                const result = await response.json();
+                if (result.status === 'success') {
+                    // Refresh the page to show updated data
+                    window.location.reload();
+                } else {
+                    throw new Error(result.error || 'Failed to save app');
+                }
             } catch (error) {
                 console.error('Failed to save app:', error);
+                alert(error.message || 'Failed to save app. Please try again.');
             }
         });
     }
@@ -457,5 +470,62 @@ async function fixJsonStructure() {
     } catch (error) {
         console.error('Failed to fix JSON structure:', error);
         alert('Failed to fix JSON structure: ' + error.message);
+    }
+}
+
+// Add new category
+async function addNewCategory() {
+    const newCategoryInput = document.getElementById('newCategory');
+    const categorySelect = document.getElementById('editAppCategory');
+    if (!newCategoryInput || !categorySelect) {
+        console.error('Required elements not found');
+        return;
+    }
+
+    const category = newCategoryInput.value.trim();
+    if (!category) {
+        alert('Please enter a category name');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/categories', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: category })
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || 'Failed to add category');
+        }
+        
+        const data = await response.json();
+        
+        if (data.status === 'exists') {
+            // If category exists, just select it
+            categorySelect.value = data.category.toLowerCase();
+        } else if (data.status === 'success') {
+            // Add new option and select it
+            const categoryValue = data.category.toLowerCase();
+            const option = new Option(category, categoryValue);
+            categorySelect.add(option);
+            categorySelect.value = categoryValue;
+            
+            // Also add to the filter dropdown
+            const filterSelect = document.getElementById('categoryFilter');
+            if (filterSelect) {
+                filterSelect.add(new Option(category, categoryValue));
+            }
+        } else {
+            throw new Error('Unexpected response from server');
+        }
+        
+        // Clear the input
+        newCategoryInput.value = '';
+        
+    } catch (error) {
+        console.error('Failed to add category:', error);
+        alert(error.message || 'Failed to add category. Please try again.');
     }
 }

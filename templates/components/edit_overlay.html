@@ -21,10 +21,16 @@
                 <div class="form-field">
                     <select class="form-select" id="editAppCategory">
                         <option value="">Select Category</option>
-                        {% for category in categories %}
-                        <option value="{{ category | lower }}">{{ category }}</option>
+                        {% for category in data.categories %}
+                        <option value="{{ category | lower }}">{{ category | title }}</option>
                         {% endfor %}
                     </select>
+                    <div class="input-group mt-2">
+                        <input type="text" class="form-control" id="newCategory" placeholder="Or type new category">
+                        <button type="button" class="btn btn-outline-secondary" onclick="addNewCategory()">
+                            <i class="bi bi-plus"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <label for="editIconUrl" class="form-label">Icon URL</label>
@@ -62,3 +68,20 @@
         </form>
     </div>
 </div>
+
+<!-- App Card Template -->
+<template id="appCardTemplate">
+    <div class="app-card" 
+         data-app-id="" 
+         data-app-name=""
+         data-category=""
+         data-icon-url=""
+         data-app-store-link=""
+         data-launch-count="0"
+         data-last-launched="">
+        <div class="app-icon">
+            <img src="" alt="" loading="lazy">
+        </div>
+        <div class="app-name"></div>
+    </div>
+</template>
