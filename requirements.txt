@@ -1,0 +1,8 @@
+Flask==3.0.0
+python-dotenv==1.0.0
+supabase==2.0.3
+Werkzeug==3.0.1
+gunicorn==21.2.0  # For production deployment
+python-jose==3.3.0  # For JWT handling
+requests==2.31.0  # Required by supabase
+typing-extensions==4.9.0  # For better type hints 
