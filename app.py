@@ -90,8 +90,8 @@ def validate_app_data(data):
     db_data = {
         "name": data.get("name"),
         "category": data.get("category", "").lower() or "uncategorized",
-        "icon_url": data.get("iconUrl", "").strip(),  # Strip whitespace from URLs
-        "app_store_link": data.get("appStoreLink", "") or data.get("link", ""),
+        "icon_url": data.get("iconUrl", "").strip(),
+        "app_store_link": data.get("appStoreLink", ""),
         "launch_count": data.get("launchCount", 0),
         "last_modified": datetime.utcnow().isoformat(),
         "last_launched": data.get("lastLaunched")
