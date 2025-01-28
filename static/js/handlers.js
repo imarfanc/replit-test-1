@@ -129,23 +129,33 @@ async function addNewCategory() {
         } else if (data.status === 'success') {
             console.log('Adding new category to select:', data.category); // Debug log
             const categoryValue = data.category.toLowerCase();
-            const option = new Option(category, categoryValue);
-            categorySelect.add(option);
+            // Check if option already exists
+            let option = Array.from(categorySelect.options).find(opt => opt.value === categoryValue);
+            if (!option) {
+                option = new Option(category, categoryValue);
+                categorySelect.add(option);
+            }
             categorySelect.value = categoryValue;
             
             const filterSelect = document.getElementById('categoryFilter');
             if (filterSelect) {
-                filterSelect.add(new Option(category, categoryValue));
+                // Check if option already exists in filter select
+                let filterOption = Array.from(filterSelect.options).find(opt => opt.value === categoryValue);
+                if (!filterOption) {
+                    filterOption = new Option(category, categoryValue);
+                    filterSelect.add(filterOption);
+                }
             }
         } else {
             throw new Error('Unexpected response from server');
         }
         
         newCategoryInput.value = '';
-        
+        return true;
     } catch (error) {
         console.error('Failed to add category:', error);
         alert(error.message || 'Failed to add category. Please try again.');
+        return false;
     }
 }
 
@@ -191,6 +201,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (editAppForm) {
         editAppForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            // Check for new category first
+            const newCategory = document.getElementById('newCategory')?.value?.trim();
+            const editAppCategory = document.getElementById('editAppCategory');
+            
+            if (newCategory && editAppCategory) {
+                // Add the new category first
+                const success = await addNewCategory();
+                if (!success) {
+                    // If adding category failed, don't proceed with form submission
+                    return;
+                }
+                // The addNewCategory function will update the select value if successful
+            }
             
             const formData = {
                 id: document.getElementById('editAppId')?.value,
