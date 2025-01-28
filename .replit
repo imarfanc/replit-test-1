@@ -1,4 +1,5 @@
-modules = ["python-3.11"]
+modules = ["python-3.11:v3-24032301-0943520"]
+hidden = [".config", "**/__pycache__", "**/.mypy_cache", "**/*.pyc"]
 
 [nix]
 channel = "stable-24_05"
