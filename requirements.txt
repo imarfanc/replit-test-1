@@ -1,8 +1,16 @@
+
 Flask==3.0.0
 python-dotenv==1.0.0
 supabase==2.0.3
 Werkzeug==3.0.1
-gunicorn==21.2.0  # For production deployment
-python-jose==3.3.0  # For JWT handling
-requests==2.31.0  # Required by supabase
-typing-extensions==4.9.0  # For better type hints 
+gunicorn==21.2.0
+python-jose==3.3.0
+requests==2.31.0
+typing-extensions==4.9.0
+pytest==7.4.4
+pytest-cov==4.1.0
+black==23.12.1
+isort==5.13.2
+flake8==7.0.0
+mypy==1.8.0
+pytest-mock==3.12.0
