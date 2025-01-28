@@ -159,6 +159,67 @@ async function addNewCategory() {
     }
 }
 
+// Import data
+async function importData(input) {
+    if (!input.files || !input.files[0]) return;
+    
+    try {
+        const file = input.files[0];
+        const text = await file.text();
+        const data = JSON.parse(text);
+        
+        const response = await fetch('/api/apps/import', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || 'Failed to import data');
+        }
+        
+        const result = await response.json();
+        console.log('Import result:', result);
+        
+        if (result.status === 'success') {
+            alert(`Successfully imported ${result.imported} apps and updated ${result.updated} apps.`);
+            window.location.reload();
+        } else {
+            throw new Error(result.error || 'Failed to import data');
+        }
+    } catch (error) {
+        console.error('Import error:', error);
+        alert(error.message || 'Failed to import data. Please check the file format and try again.');
+    }
+    
+    // Clear the input
+    input.value = '';
+}
+
+// Export data
+async function exportData() {
+    try {
+        const response = await fetch('/api/apps');
+        if (!response.ok) throw new Error('Failed to fetch apps');
+        
+        const data = await response.json();
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `app_gallery_export_${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    } catch (error) {
+        console.error('Export error:', error);
+        alert(error.message || 'Failed to export data. Please try again.');
+    }
+}
+
 // Initialize event handlers
 document.addEventListener('DOMContentLoaded', () => {
     const settingsBtn = document.getElementById('settingsBtn');

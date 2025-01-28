@@ -67,7 +67,20 @@ class AppDataManager:
     def load_apps():
         try:
             response = supabase.table(Config.APPS_TABLE).select("*").execute()
-            return {"apps": response.data or []}
+            # Convert snake_case to camelCase for frontend
+            apps = []
+            for app in response.data or []:
+                apps.append({
+                    "id": app["id"],
+                    "name": app["name"],
+                    "category": app["category"],
+                    "iconUrl": app["icon_url"],
+                    "appStoreLink": app["app_store_link"],
+                    "launchCount": app["launch_count"],
+                    "lastModified": app["last_modified"],
+                    "lastLaunched": app["last_launched"]
+                })
+            return {"apps": apps}
         except Exception as e:
             logger.error(f"Error loading apps: {e}")
             raise AppError("Failed to load app data")
